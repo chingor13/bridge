@@ -26,8 +26,9 @@ defmodule Bridge.Scorer do
     {0, 0, missed_by(contract, tricks_made) |> scaled(200, 300) }
   end
 
-  def score(contract = %Bridge.Contract{vulnerable: true}, tricks_made) do
-    {0, 0, missed_by(contract, tricks_made) * 100 }
+  def score(contract = %Bridge.Contract{vulnerable: true, redoubled: true}, tricks_made) do
+    # scale: 100, 300, 500, 700
+    {0, 0, missed_by(contract, tricks_made) |> scaled(400, 600) }
   end
 
   def score(contract = %Bridge.Contract{redoubled: true}, tricks_made) do
@@ -38,6 +39,10 @@ defmodule Bridge.Scorer do
   def score(contract = %Bridge.Contract{doubled: true}, tricks_made) do
     # scale: 100, 300, 500, 700
     {0, 0, missed_by(contract, tricks_made) |> scaled(100, 200, 300) }
+  end
+
+  def score(contract = %Bridge.Contract{vulnerable: true}, tricks_made) do
+    {0, 0, missed_by(contract, tricks_made) * 100 }
   end
 
   def score(contract, tricks_made) do
