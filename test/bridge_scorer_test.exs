@@ -76,23 +76,23 @@ defmodule BridgeScorerTest do
 
   test "overtricks minor suit redoubled not-vulnerable" do
     for suit <- [:clubs, :diamonds] do
-      assert {300, 40, 0} == Scorer.score(%Contract{suit: suit, bid: 1, redoubled: true, vulnerable: false}, 8)
-      assert {500, 40, 0} == Scorer.score(%Contract{suit: suit, bid: 1, redoubled: true, vulnerable: false}, 9)
-      assert {700, 40, 0} == Scorer.score(%Contract{suit: suit, bid: 1, redoubled: true, vulnerable: false}, 10)
-      assert {900, 40, 0} == Scorer.score(%Contract{suit: suit, bid: 1, redoubled: true, vulnerable: false}, 11)
-      assert {1100, 40, 0} == Scorer.score(%Contract{suit: suit, bid: 1, redoubled: true, vulnerable: false}, 12)
-      assert {1300, 40, 0} == Scorer.score(%Contract{suit: suit, bid: 1, redoubled: true, vulnerable: false}, 13)
+      assert {300, 80, 0} == Scorer.score(%Contract{suit: suit, bid: 1, redoubled: true, vulnerable: false}, 8)
+      assert {500, 80, 0} == Scorer.score(%Contract{suit: suit, bid: 1, redoubled: true, vulnerable: false}, 9)
+      assert {700, 80, 0} == Scorer.score(%Contract{suit: suit, bid: 1, redoubled: true, vulnerable: false}, 10)
+      assert {900, 80, 0} == Scorer.score(%Contract{suit: suit, bid: 1, redoubled: true, vulnerable: false}, 11)
+      assert {1100, 80, 0} == Scorer.score(%Contract{suit: suit, bid: 1, redoubled: true, vulnerable: false}, 12)
+      assert {1300, 80, 0} == Scorer.score(%Contract{suit: suit, bid: 1, redoubled: true, vulnerable: false}, 13)
     end
   end
 
   test "overtricks minor suit redoubled vulnerable" do
     for suit <- [:clubs, :diamonds] do
-      assert {500, 40, 0} == Scorer.score(%Contract{suit: suit, bid: 1, redoubled: true, vulnerable: true}, 8)
-      assert {900, 40, 0} == Scorer.score(%Contract{suit: suit, bid: 1, redoubled: true, vulnerable: true}, 9)
-      assert {1300, 40, 0} == Scorer.score(%Contract{suit: suit, bid: 1, redoubled: true, vulnerable: true}, 10)
-      assert {1700, 40, 0} == Scorer.score(%Contract{suit: suit, bid: 1, redoubled: true, vulnerable: true}, 11)
-      assert {2100, 40, 0} == Scorer.score(%Contract{suit: suit, bid: 1, redoubled: true, vulnerable: true}, 12)
-      assert {2500, 40, 0} == Scorer.score(%Contract{suit: suit, bid: 1, redoubled: true, vulnerable: true}, 13)
+      assert {500, 80, 0} == Scorer.score(%Contract{suit: suit, bid: 1, redoubled: true, vulnerable: true}, 8)
+      assert {900, 80, 0} == Scorer.score(%Contract{suit: suit, bid: 1, redoubled: true, vulnerable: true}, 9)
+      assert {1300, 80, 0} == Scorer.score(%Contract{suit: suit, bid: 1, redoubled: true, vulnerable: true}, 10)
+      assert {1700, 80, 0} == Scorer.score(%Contract{suit: suit, bid: 1, redoubled: true, vulnerable: true}, 11)
+      assert {2100, 80, 0} == Scorer.score(%Contract{suit: suit, bid: 1, redoubled: true, vulnerable: true}, 12)
+      assert {2500, 80, 0} == Scorer.score(%Contract{suit: suit, bid: 1, redoubled: true, vulnerable: true}, 13)
     end
   end
 

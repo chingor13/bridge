@@ -10,16 +10,16 @@ defmodule Bridge.Scorer do
 
   Returns a tuple of {offsive_above_line, offensive_below_line, defensive_above_line}
   """
-  def score(%Bridge.Contract{suit: suit, bid: bid, redoubled: true}, tricks_made) when tricks_made >= bid + 6 do
-    {100 + 4 * overtrick_values(suit) * (tricks_made - bid - 6), 4 * trick_values(suit, bid), 0}
+  def score(contract = %Bridge.Contract{suit: suit, bid: bid, redoubled: true}, tricks_made) when tricks_made >= bid + 6 do
+    {100 + overtrick_values(contract) * (tricks_made - bid - 6), 4 * trick_values(suit, bid), 0}
   end
 
-  def score(%Bridge.Contract{suit: suit, bid: bid, doubled: true}, tricks_made) when tricks_made >= bid + 6 do
-    {50 + 2 * overtrick_values(suit) * (tricks_made - bid - 6), 2 * trick_values(suit, bid), 0}
+  def score(contract = %Bridge.Contract{suit: suit, bid: bid, doubled: true}, tricks_made) when tricks_made >= bid + 6 do
+    {50 + overtrick_values(contract) * (tricks_made - bid - 6), 2 * trick_values(suit, bid), 0}
   end
 
-  def score(%Bridge.Contract{suit: suit, bid: bid}, tricks_made) when tricks_made >= bid + 6 do
-    {overtrick_values(suit) * (tricks_made - bid - 6), trick_values(suit, bid), 0}
+  def score(contract = %Bridge.Contract{suit: suit, bid: bid}, tricks_made) when tricks_made >= bid + 6 do
+    {overtrick_values(contract) * (tricks_made - bid - 6), trick_values(suit, bid), 0}
   end
 
   def score(contract = %Bridge.Contract{vulnerable: true, doubled: true}, tricks_made) do
@@ -71,8 +71,11 @@ defmodule Bridge.Scorer do
   defp trick_values(:diamonds, number), do: 20 * number
   defp trick_values(_, number),         do: 30 * number
 
-  defp overtrick_values(:no_trump), do: 30
-  defp overtrick_values(:clubs),    do: 20
-  defp overtrick_values(:diamonds), do: 20
-  defp overtrick_values(_),         do: 30
+  defp overtrick_values(%Bridge.Contract{redoubled: true, vulnerable: true}), do: 400
+  defp overtrick_values(%Bridge.Contract{redoubled: true}),                   do: 200
+  defp overtrick_values(%Bridge.Contract{doubled: true, vulnerable: true}),   do: 200
+  defp overtrick_values(%Bridge.Contract{doubled: true}),                     do: 100
+  defp overtrick_values(%Bridge.Contract{suit: :clubs}),                      do: 20
+  defp overtrick_values(%Bridge.Contract{suit: :diamonds}),                   do: 20
+  defp overtrick_values(_),                                                   do: 30
 end
