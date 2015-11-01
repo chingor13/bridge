@@ -1,0 +1,2 @@
+defmodule Bridge do
+end
