@@ -1,6 +1,6 @@
 # Bridge
 
-**TODO: Add description**
+This library is written in elixir to handle scoring contract bridge games.
 
 ## Installation
 
