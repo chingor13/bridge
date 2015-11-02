@@ -12,8 +12,8 @@ defmodule BridgeScorerTest do
       assert {0, 60, 0} == Scorer.score(%Contract{suit: suit, bid: 3}, 9)
       assert {0, 80, 0} == Scorer.score(%Contract{suit: suit, bid: 4}, 10)
       assert {0, 100, 0} == Scorer.score(%Contract{suit: suit, bid: 5}, 11)
-      assert {0, 120, 0} == Scorer.score(%Contract{suit: suit, bid: 6}, 12)
-      assert {0, 140, 0} == Scorer.score(%Contract{suit: suit, bid: 7}, 13)
+      assert {500, 120, 0} == Scorer.score(%Contract{suit: suit, bid: 6}, 12)
+      assert {750, 140, 0} == Scorer.score(%Contract{suit: suit, bid: 7}, 13)
     end
   end
 
@@ -69,8 +69,8 @@ defmodule BridgeScorerTest do
       assert {100, 240, 0} == Scorer.score(%Contract{suit: suit, bid: 3, redoubled: true}, 9)
       assert {100, 320, 0} == Scorer.score(%Contract{suit: suit, bid: 4, redoubled: true}, 10)
       assert {100, 400, 0} == Scorer.score(%Contract{suit: suit, bid: 5, redoubled: true}, 11)
-      assert {100, 480, 0} == Scorer.score(%Contract{suit: suit, bid: 6, redoubled: true}, 12)
-      assert {100, 560, 0} == Scorer.score(%Contract{suit: suit, bid: 7, redoubled: true}, 13)
+      assert {600, 480, 0} == Scorer.score(%Contract{suit: suit, bid: 6, redoubled: true}, 12)
+      assert {850, 560, 0} == Scorer.score(%Contract{suit: suit, bid: 7, redoubled: true}, 13)
     end
   end
 
@@ -103,8 +103,8 @@ defmodule BridgeScorerTest do
       assert {0, 90, 0} == Scorer.score(%Contract{suit: suit, bid: 3}, 9)
       assert {0, 120, 0} == Scorer.score(%Contract{suit: suit, bid: 4}, 10)
       assert {0, 150, 0} == Scorer.score(%Contract{suit: suit, bid: 5}, 11)
-      assert {0, 180, 0} == Scorer.score(%Contract{suit: suit, bid: 6}, 12)
-      assert {0, 210, 0} == Scorer.score(%Contract{suit: suit, bid: 7}, 13)
+      assert {500, 180, 0} == Scorer.score(%Contract{suit: suit, bid: 6}, 12)
+      assert {750, 210, 0} == Scorer.score(%Contract{suit: suit, bid: 7}, 13)
     end
   end
 
@@ -115,8 +115,8 @@ defmodule BridgeScorerTest do
       assert {50, 180, 0} == Scorer.score(%Contract{suit: suit, bid: 3, doubled: true}, 9)
       assert {50, 240, 0} == Scorer.score(%Contract{suit: suit, bid: 4, doubled: true}, 10)
       assert {50, 300, 0} == Scorer.score(%Contract{suit: suit, bid: 5, doubled: true}, 11)
-      assert {50, 360, 0} == Scorer.score(%Contract{suit: suit, bid: 6, doubled: true}, 12)
-      assert {50, 420, 0} == Scorer.score(%Contract{suit: suit, bid: 7, doubled: true}, 13)
+      assert {550, 360, 0} == Scorer.score(%Contract{suit: suit, bid: 6, doubled: true}, 12)
+      assert {800, 420, 0} == Scorer.score(%Contract{suit: suit, bid: 7, doubled: true}, 13)
     end
   end
 
@@ -127,8 +127,8 @@ defmodule BridgeScorerTest do
       assert {100, 360, 0} == Scorer.score(%Contract{suit: suit, bid: 3, redoubled: true}, 9)
       assert {100, 480, 0} == Scorer.score(%Contract{suit: suit, bid: 4, redoubled: true}, 10)
       assert {100, 600, 0} == Scorer.score(%Contract{suit: suit, bid: 5, redoubled: true}, 11)
-      assert {100, 720, 0} == Scorer.score(%Contract{suit: suit, bid: 6, redoubled: true}, 12)
-      assert {100, 840, 0} == Scorer.score(%Contract{suit: suit, bid: 7, redoubled: true}, 13)
+      assert {600, 720, 0} == Scorer.score(%Contract{suit: suit, bid: 6, redoubled: true}, 12)
+      assert {850, 840, 0} == Scorer.score(%Contract{suit: suit, bid: 7, redoubled: true}, 13)
     end
   end
 
@@ -138,8 +138,8 @@ defmodule BridgeScorerTest do
     assert {0, 100, 0} == Scorer.score(%Contract{suit: :no_trump, bid: 3}, 9)
     assert {0, 130, 0} == Scorer.score(%Contract{suit: :no_trump, bid: 4}, 10)
     assert {0, 160, 0} == Scorer.score(%Contract{suit: :no_trump, bid: 5}, 11)
-    assert {0, 190, 0} == Scorer.score(%Contract{suit: :no_trump, bid: 6}, 12)
-    assert {0, 220, 0} == Scorer.score(%Contract{suit: :no_trump, bid: 7}, 13)
+    assert {500, 190, 0} == Scorer.score(%Contract{suit: :no_trump, bid: 6}, 12)
+    assert {750, 220, 0} == Scorer.score(%Contract{suit: :no_trump, bid: 7}, 13)
   end
 
   test "made no trump doubled" do
@@ -148,8 +148,8 @@ defmodule BridgeScorerTest do
     assert {50, 200, 0} == Scorer.score(%Contract{suit: :no_trump, bid: 3, doubled: true}, 9)
     assert {50, 260, 0} == Scorer.score(%Contract{suit: :no_trump, bid: 4, doubled: true}, 10)
     assert {50, 320, 0} == Scorer.score(%Contract{suit: :no_trump, bid: 5, doubled: true}, 11)
-    assert {50, 380, 0} == Scorer.score(%Contract{suit: :no_trump, bid: 6, doubled: true}, 12)
-    assert {50, 440, 0} == Scorer.score(%Contract{suit: :no_trump, bid: 7, doubled: true}, 13)
+    assert {550, 380, 0} == Scorer.score(%Contract{suit: :no_trump, bid: 6, doubled: true}, 12)
+    assert {800, 440, 0} == Scorer.score(%Contract{suit: :no_trump, bid: 7, doubled: true}, 13)
   end
 
   test "made no trump redoubled" do
@@ -158,8 +158,8 @@ defmodule BridgeScorerTest do
     assert {100, 400, 0} == Scorer.score(%Contract{suit: :no_trump, bid: 3, redoubled: true}, 9)
     assert {100, 520, 0} == Scorer.score(%Contract{suit: :no_trump, bid: 4, redoubled: true}, 10)
     assert {100, 640, 0} == Scorer.score(%Contract{suit: :no_trump, bid: 5, redoubled: true}, 11)
-    assert {100, 760, 0} == Scorer.score(%Contract{suit: :no_trump, bid: 6, redoubled: true}, 12)
-    assert {100, 880, 0} == Scorer.score(%Contract{suit: :no_trump, bid: 7, redoubled: true}, 13)
+    assert {600, 760, 0} == Scorer.score(%Contract{suit: :no_trump, bid: 6, redoubled: true}, 12)
+    assert {850, 880, 0} == Scorer.score(%Contract{suit: :no_trump, bid: 7, redoubled: true}, 13)
   end
 
   test "missed contracts" do
@@ -231,6 +231,16 @@ defmodule BridgeScorerTest do
       assert {0, 0, 2800} == Scorer.score(%Contract{suit: suit, bid: 5, redoubled: true, vulnerable: true}, 6)
       assert {0, 0, 3400} == Scorer.score(%Contract{suit: suit, bid: 6, redoubled: true, vulnerable: true}, 6)
       assert {0, 0, 4000} == Scorer.score(%Contract{suit: suit, bid: 7, redoubled: true, vulnerable: true}, 6)
+    end
+  end
+
+  test "slam bonuses" do
+    for suit <- [:club, :diamonds] do
+      assert {500, 120, 0} == Scorer.score(%Contract{suit: suit, bid: 6, vulnerable: false}, 12)
+      assert {1000, 120, 0} == Scorer.score(%Contract{suit: suit, bid: 6, vulnerable: true}, 12)
+
+      assert {750, 140, 0} == Scorer.score(%Contract{suit: suit, bid: 7, vulnerable: false}, 13)
+      assert {1500, 140, 0} == Scorer.score(%Contract{suit: suit, bid: 7, vulnerable: true}, 13)
     end
   end
 
