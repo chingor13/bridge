@@ -41,13 +41,13 @@ defmodule Bridge.Scorer do
   end
 
   defp contract_points(%Bridge.Contract{bid: bid}, tricks_made) when tricks_made < bid + 6, do: 0
-  defp contract_points(contract = %Bridge.Contract{suit: suit, bid: bid, redoubled: true}, _) do
+  defp contract_points(%Bridge.Contract{suit: suit, bid: bid, redoubled: true}, _) do
     4 * trick_values(suit, bid)
   end
-  defp contract_points(contract = %Bridge.Contract{suit: suit, bid: bid, doubled: true}, _) do
+  defp contract_points(%Bridge.Contract{suit: suit, bid: bid, doubled: true}, _) do
     2 * trick_values(suit, bid)
   end
-  defp contract_points(contract = %Bridge.Contract{suit: suit, bid: bid}, _) do
+  defp contract_points(%Bridge.Contract{suit: suit, bid: bid}, _) do
     trick_values(suit, bid)
   end
 
@@ -65,7 +65,7 @@ defmodule Bridge.Scorer do
 
   # no bonus when you don't make overtricks
   defp overtrick_bonus(%Bridge.Contract{bid: bid}, tricks_made) when tricks_made <= bid + 6, do: 0
-  defp overtrick_bonus(contract = %Bridge.Contract{bid: bid}, tricks_made) do
+  defp overtrick_bonus(contract, tricks_made) do
     overtricks(contract, tricks_made) * overtrick_values(contract)
   end
 
