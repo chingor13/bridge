@@ -1,4 +1,4 @@
-# Bridge
+# Bridge ![](https://travis-ci.org/chingor13/bridge.svg?branch=master)
 
 This library is written in elixir to handle scoring contract bridge games.
 
