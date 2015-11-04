@@ -9,7 +9,7 @@ defmodule Bridge.GameState do
     defstruct tricks_made: 0, honors: 0
   end
 
-  defstruct hands: [], current_contract: nil
+  defstruct hands: [], contract: nil
 
   ## Client API
 
@@ -32,6 +32,10 @@ defmodule Bridge.GameState do
     GenServer.call(server, {:record_result, result})
   end
 
+  def get_hands(server) do
+    GenServer.call(server, {:get_hands})
+  end
+
   ## Server Callbacks
 
   def init(:ok) do
@@ -39,20 +43,23 @@ defmodule Bridge.GameState do
   end
 
   def handle_call({:set_contract, contract}, _from, state) do
-    state = %Bridge.GameState{ state | current_contract: contract }
+    state = %Bridge.GameState{ state | contract: contract }
     {:reply, {:ok, contract}, state}
   end 
   def handle_call({:get_contract}, _from, state) do
-    {:reply, {:ok, state.current_contract}, state}
+    {:reply, {:ok, state.contract}, state}
   end
 
-  def handle_call({:record_result, result}, _from, state = %Bridge.GameState{current_contract: nil}) do
+  def handle_call({:record_result, _result}, _from, state = %Bridge.GameState{contract: nil}) do
     {:reply, {:error, "no contract set"}, state}
   end
   def handle_call({:record_result, result}, _from, state) do
-    entry = %Bridge.GameState.HandHistory{contract: state.current_contract, result: result}
-    state = %Bridge.GameState{ hands: [entry | state.hands], current_contract: nil}
+    entry = %Bridge.GameState.HandHistory{contract: state.contract, result: result}
+    state = %Bridge.GameState{ hands: [entry | state.hands], contract: nil}
     {:reply, {:ok, result}, state}
   end
 
+  def handle_call({:get_hands}, _from, state) do
+    {:reply, {:ok, state.hands}, state}
+  end
 end
