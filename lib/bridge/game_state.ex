@@ -9,19 +9,19 @@ defmodule Bridge.GameState do
     defstruct tricks_made: 0, honors: 0
   end
 
-  defstruct hands: [], contract: nil
+  defstruct hands: [], contract: nil, players: []
 
   ## Client API
 
   @doc """
   Starts the game.
   """
-  def start_link(opts \\ []) do
-    GenServer.start_link(__MODULE__, :ok, opts)
+  def start_link(players, opts \\ []) do
+    GenServer.start_link(__MODULE__, {:ok, players}, opts)
   end
 
-  def set_contract(server, contract) do
-    GenServer.call(server, {:set_contract, contract})
+  def set_contract(server, players, contract) do
+    GenServer.call(server, {:set_contract, players, contract})
   end
 
   def get_contract(server) do
@@ -36,15 +36,20 @@ defmodule Bridge.GameState do
     GenServer.call(server, {:get_hands})
   end
 
-  ## Server Callbacks
-
-  def init(:ok) do
-    {:ok, %Bridge.GameState{}}
+  def get_players(server) do
+    GenServer.call(server, {:get_players})
   end
 
-  def handle_call({:set_contract, contract}, _from, state) do
-    state = %Bridge.GameState{ state | contract: contract }
-    {:reply, {:ok, contract}, state}
+  ## Server Callbacks
+
+  def init({:ok, players}) do
+    {:ok, %Bridge.GameState{players: players}}
+  end
+
+  def handle_call({:set_contract, players, contract}, _from, state) do
+    vulnerable = Enum.any?(players, fn (player) -> player.vulnerable end)
+    contract = %{ contract | players: players, vulnerable: vulnerable }
+    {:reply, {:ok, contract}, %{ state | contract: contract }}
   end 
   def handle_call({:get_contract}, _from, state) do
     {:reply, {:ok, state.contract}, state}
@@ -61,5 +66,8 @@ defmodule Bridge.GameState do
 
   def handle_call({:get_hands}, _from, state) do
     {:reply, {:ok, state.hands}, state}
+  end
+  def handle_call({:get_players}, _from, state) do
+    {:reply, {:ok, state.players}, state}
   end
 end
