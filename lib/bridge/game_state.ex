@@ -28,6 +28,10 @@ defmodule Bridge.GameState do
     GenServer.call(server, {:get_contract})
   end
 
+  def complete_hand(server, tricks_made, honors) do
+    record_result(server, %Bridge.GameState.HandResult{tricks_made: tricks_made, honors: honors})
+  end
+
   def record_result(server, result) do
     GenServer.call(server, {:record_result, result})
   end
