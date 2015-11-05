@@ -12,6 +12,14 @@ defmodule Bridge.Player do
     GenServer.start_link(__MODULE__, {:ok, name}, opts)
   end
 
+  def is_vulnerable?(server) do
+    GenServer.call(server, {:is_vulnerable})
+  end
+
+  def set_vulnerable(server, is_vulnerable) do
+    GenServer.call(server, {:set_vulnerable, is_vulnerable})
+  end
+
   ## Server Callbacks
 
   def init({:ok, name}) do
@@ -20,6 +28,10 @@ defmodule Bridge.Player do
 
   def handle_call({:set_vulnerable, is_vulnerable}, _from, state) do
     {:reply, {:ok, is_vulnerable}, %{ state | vulnerable: is_vulnerable }}
+  end
+
+  def handle_call({:is_vulnerable}, _from, state) do
+    {:reply, state.vulnerable, state}
   end
 
 end
